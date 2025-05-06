@@ -119,9 +119,10 @@ function getPhpStormCommandPath() {
 
     var tools = state.tools || [];
     for (var i = 0; i < tools.length; i++) {
-        if (tools[i].toolId == 'PhpStorm') {
-            return tools[i].installLocation + '\\' + tools[i].launchCommand.replace(/\//g, '\\');
-        }
+    if (tools[i].toolId == "PhpStorm") {
+        var basePath = tools[i].launchCommand.indexOf(tools[i].installLocation) === -1 ? tools[i].installLocation +  "\\" : "";
+
+        return (basePath + tools[i].launchCommand).replace(/\//g, "\\");
     }
 
     return defaultCommandPath;
